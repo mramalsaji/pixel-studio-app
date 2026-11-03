@@ -1,0 +1,6 @@
+{
+  "summary": "Implementation plan to eliminate navigation lag and screen transition jank, optimizing high-refresh-rate 120Hz transitions, adding smooth Coil crossfades, skeleton loading states, and responsive spring touch physics.",
+  "updatedAt": "2026-11-03T17:15:21.709597662Z",
+  "requestFeedback": true,
+  "userFacing": true
+}

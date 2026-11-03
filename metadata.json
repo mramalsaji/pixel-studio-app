@@ -1,0 +1,6 @@
+{
+  "name": "PhotoForge",
+  "description": "Offline photo editor to crop, resize dimensions, convert format between JPEG, PNG, and WebP, and batch process photos while preserving EXIF metadata.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
