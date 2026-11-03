@@ -19,6 +19,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -460,8 +461,12 @@ private fun RecentImageCard(
             .size(width = 110.dp, height = 130.dp)
     ) {
         Column {
+            val context = LocalContext.current
             AsyncImage(
-                model = File(entity.filePath),
+                model = coil.request.ImageRequest.Builder(context)
+                    .data(File(entity.filePath))
+                    .crossfade(200)
+                    .build(),
                 contentDescription = entity.originalFileName,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

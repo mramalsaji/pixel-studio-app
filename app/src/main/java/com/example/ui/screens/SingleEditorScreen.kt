@@ -223,14 +223,33 @@ fun SingleEditorScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1.1f)
-                    .background(Color.Black)
+                    .background(Color.Black),
+                contentAlignment = Alignment.Center
             ) {
-                CropCanvas(
-                    bitmap = bitmap,
-                    cropRatio = cropRatio,
-                    normalizedCropRect = cropRect,
-                    onCropRectChanged = { viewModel.updateCropRect(it) }
-                )
+                if (bitmap != null) {
+                    CropCanvas(
+                        bitmap = bitmap,
+                        cropRatio = cropRatio,
+                        normalizedCropRect = cropRect,
+                        onCropRectChanged = { viewModel.updateCropRect(it) }
+                    )
+                } else {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(32.dp),
+                            strokeWidth = 2.5.dp,
+                            color = Color.White
+                        )
+                        Text(
+                            text = "Loading photo...",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = TextSecondary
+                        )
+                    }
+                }
             }
 
             // Tab bar selector with AMOLED styling

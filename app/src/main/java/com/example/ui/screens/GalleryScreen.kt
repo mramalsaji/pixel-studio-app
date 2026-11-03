@@ -381,8 +381,12 @@ private fun GalleryItemCard(
                     .fillMaxWidth()
                     .height(130.dp)
             ) {
+                val context = LocalContext.current
                 AsyncImage(
-                    model = File(entity.filePath),
+                    model = coil.request.ImageRequest.Builder(context)
+                        .data(File(entity.filePath))
+                        .crossfade(200)
+                        .build(),
                     contentDescription = entity.originalFileName,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize()

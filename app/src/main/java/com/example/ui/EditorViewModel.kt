@@ -158,12 +158,14 @@ class EditorViewModel(application: Application) : AndroidViewModel(application) 
 
     fun loadSingleImage(uri: Uri) {
         _singleImageUri.value = uri
+        _singleBitmap.value = null // clear previous bitmap to prevent memory leak
         _isSingleProcessing.value = true
         _cropRect.value = RectF(0f, 0f, 1f, 1f)
         _cropRatio.value = CropRatio.FREE
         _rotationDegrees.value = 0f
         _flipHorizontal.value = false
         _flipVertical.value = false
+        _currentScreen.value = AppScreen.SINGLE_EDITOR // Instant navigation!
 
         viewModelScope.launch {
             val context = getApplication<Application>()
@@ -184,7 +186,6 @@ class EditorViewModel(application: Application) : AndroidViewModel(application) 
             val exif = ExifHelper.extractExif(context, uri)
             _exifData.value = exif
             _isSingleProcessing.value = false
-            _currentScreen.value = AppScreen.SINGLE_EDITOR
             scheduleEstimateSize()
         }
     }

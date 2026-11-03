@@ -6,12 +6,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -61,10 +61,28 @@ fun PhotoForgeApp(
     AnimatedContent(
         targetState = currentScreen,
         transitionSpec = {
-            (fadeIn(animationSpec = spring(stiffness = Spring.StiffnessMediumLow, dampingRatio = Spring.DampingRatioNoBouncy)) +
-             scaleIn(initialScale = 0.96f, animationSpec = spring(stiffness = Spring.StiffnessMediumLow))) togetherWith
-            (fadeOut(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) +
-             scaleOut(targetScale = 1.04f, animationSpec = spring(stiffness = Spring.StiffnessMediumLow)))
+            val isNavigatingBack = targetState == AppScreen.HOME && initialState != AppScreen.HOME
+            if (isNavigatingBack) {
+                (slideInHorizontally(
+                    initialOffsetX = { -it / 4 },
+                    animationSpec = tween(220, easing = FastOutSlowInEasing)
+                ) + fadeIn(animationSpec = tween(180))).togetherWith(
+                    slideOutHorizontally(
+                        targetOffsetX = { it / 4 },
+                        animationSpec = tween(200, easing = FastOutSlowInEasing)
+                    ) + fadeOut(animationSpec = tween(140))
+                )
+            } else {
+                (slideInHorizontally(
+                    initialOffsetX = { it / 4 },
+                    animationSpec = tween(220, easing = FastOutSlowInEasing)
+                ) + fadeIn(animationSpec = tween(180))).togetherWith(
+                    slideOutHorizontally(
+                        targetOffsetX = { -it / 4 },
+                        animationSpec = tween(200, easing = FastOutSlowInEasing)
+                    ) + fadeOut(animationSpec = tween(140))
+                )
+            }
         },
         modifier = Modifier
             .fillMaxSize()
