@@ -8,3 +8,5 @@ A high-performance, offline-ready image editing web application built entirely u
 - 🔄 **Transform Tools:** 90° rotation and horizontal/vertical flipping.
 - 💾 **Format & Compression:** Export to JPEG, PNG, or WebP with real-time file size estimation.
 
+## Built With
+- **Platform:** Google AI Studio
